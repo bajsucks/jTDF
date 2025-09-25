@@ -10,7 +10,6 @@ TBD
 devforum page blabla
 this very awesome framework is very awesome blabla
 give me a star blabla
-insert badges here
 
 </div>
 
