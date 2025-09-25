@@ -1,10 +1,18 @@
+<div align="center">
+  
+  insert badges here
+  
+<img src="https://github.com/user-attachments/assets/2aefaadd-2863-4fae-86c0-38e1d13ced27" alt="jTDF logo" width="40%" align="center">
+
 # Baj's Tower Defense Framework
+
 TBD
-logo
 devforum page blabla
 this very awesome framework is very awesome blabla
 give me a star blabla
+insert badges here
 
+</div>
 
 ## What this framework handles:
 - Towers: stats, placement, upgrades, attacks, animations, stat effects
