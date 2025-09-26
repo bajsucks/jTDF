@@ -4,42 +4,65 @@
 	Created: 9/26/2025
 	Last updated: 9/26/2025
 	Author: baj (@artembon)
-	Description:
+	Description: Tower and enemy functions
 	
 ]]
 
+-- services
 local CollectionService = game:GetService("CollectionService")
 local RunService = game:GetService("RunService")
 
-local SlotTowers = require(script.SlotTowers)
-local EnemyModule = require(script.Enemies)
+-- constant modules
+local CTowers = require(script.CTowers)
+local CEnemies = require(script.CEnemies)
 
+-- internal modules
+local Util = require(script.internal.Util)
 local t = require(script.internal.t)
+local Signal = require(script.internal.Signal)
 
-type Tower = SlotTowers.Tower
-type Stats = SlotTowers.Stats
-type Enemy = Enemies.Enemy
+-- types
+type CTower = CTowers.CTower
+type CEnemy = Enemies.CEnemy
+type Stats = CTowers.Stats
 
 export type Unit = {
 	["CurUpgrade"]: number,
 	["CurStats"]: Stats,
 	["StatusEffects"]: {[number]: string},
-	["Owner"]: number -- userid
+	["Owner"]: number, -- userid
+	["Shot"]: Signal.Signal<string>,
+	["StatusEffectsChanged"]: Signal.Signal<string, boolean>,
+	["Upgraded"]: Signal.Signal<number>,
+	["StatsChanged"]: Signal.Signal,
+	["Destroying"]: Signal.Signal
 }
-local CheckUnit = t.tuple(t.instanceIsA("Player"), t.table, t.CFrame)
+
+-- type refiner
+local function r(self)
+	self = self :: Unit
+end
+
+local CheckUnit = t.interface({
+	CurUpgrade = t.number,
+	CurStats = t.table,
+	StatusEffects = t.table,
+	Owner = t.number
+})
 
 local jTDF = {Units = {}, Enemies = {}}
 local Units, Enemies = jTDF.Units, jTDF.Enemies
 Units.__index, Enemies.__index = Units, Enemies
 
-function Units:CheckUnitPlacement(Position:Vector3)
-	
+
+function jTDF.CheckTowerPlacement(Position:Vector3)
+	-- TBD
 end
 
 -- Client and server functions
 
 function jTDF.UnitFromID(ID:string)
-	
+	-- TBD
 end
 
 if RunService:IsClient() then
@@ -50,6 +73,11 @@ if RunService:IsClient() then
 end
 
 -- Server functions
+
+-- global signals (not sigfor because intellisense)
+jTDF.UnitPlaced = Signal()
+jTDF.UnitDestroyed = Signal()
+jTDF.UnitChanged = Signal()
 
 local CheckNewUnit = t.tuple(t.instanceIsA("Player"), t.table, t.CFrame)
 
@@ -62,20 +90,28 @@ function Units.new(Player:Player, Tower:Tower, CF:CFrame): Unit
 	
 	local self = setmetatable({}, Units)
 	self.CurUpgrade = 0
-	self.CurStats = Tower.Upgrades[0]
+	self.CurStats = Tower.Upgrades[1]
 	self.CurStats.Cost = nil
 	self.StatusEffects = {}
+	-- set signals
+	Util.sigfor(self, {"Shot", "StatusEffectChanged", "Upgraded", "StatsChanged", "Destroying"})
 	
 	return self
 end
 
 
 function Units:Destroy()
+	r(self)
 	
+	self.
+	
+	assert(CheckUnit(self))
+	self.Destroying:Fire()
+	-- TBD
 end
 
-function jTDF.UpgradeUnit()
-	
+function Units:UpgradeUnit()
+	-- TBD
 end
 
 
