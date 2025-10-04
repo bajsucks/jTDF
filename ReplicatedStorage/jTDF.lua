@@ -2,7 +2,7 @@
 --[[
 	jTDF module
 	Created: 9/26/2025
-	Last updated: 9/27/2025
+	Last updated: 10/3/2025
 	Author: baj (@artembon)
 	Description: Tower and enemy functions
 	
@@ -28,22 +28,22 @@ local Effects: {
 
 -- types
 type CTower = CTowers.CTower
-type CEnemy = Enemies.CEnemy
+type CEnemy = CEnemies.CEnemy
 type Stats = CTowers.Stats
 
 export type Unit = {
 	["CTowerID"]: string,
 	["CurUpgrade"]: number,
 	["CurStats"]: Stats,
-	["StatusEffects"]: {[string]: boolean|thread}, -- update documentation
+	["StatusEffects"]: {[string]: thread|boolean}, -- update documentation
 	["Owner"]: number, -- userid
 	["Position"]: Vector3,
 	["Model"]: Model,
 	["Shot"]: Signal.Signal<string>,
 	["StatusEffectsChanged"]: Signal.Signal<string, boolean>,
 	["Upgraded"]: Signal.Signal<number>,
-	["StatsChanged"]: Signal.Signal,
-	["Destroying"]: Signal.Signal
+	["StatsChanged"]: Signal.Signal<>,
+	["Destroying"]: Signal.Signal<>
 }
 
 export type Enemy = {
@@ -53,8 +53,9 @@ export type Enemy = {
 	["Model"]: Model,
 	["LastHit"]: Unit,
 	["StatusEffects"]: {[number]: string},
-	["StatsChanged"]: Signal.Signal,
-	["Destroying"]: Signal.Signal
+	["StatsChanged"]: Signal.Signal<>,
+	["Destroying"]: Signal.Signal<>,
+	["GotDamaged"]: Signal.Signal<Unit>
 }
 
 -- type refiner
@@ -74,6 +75,8 @@ local CheckUnit = t.interface({
 local jTDF = {Units = {}, Enemies = {}}
 local Units, Enemies = jTDF.Units, jTDF.Enemies
 Units.__index, Enemies.__index = Units, Enemies
+
+local PathFolder:Folder?
 
 
 -- Client and server functions
@@ -95,7 +98,7 @@ function jTDF.RegisterEffect(Effect:string, func:()->())
 	
 end
 
--- global signals (not sigfor because intellisense)
+-- global signals (not signalfor because intellisense)
 jTDF.UnitPlaced = Signal()
 jTDF.UnitDestroying = Signal()
 jTDF.UnitChanged = Signal()
@@ -125,7 +128,7 @@ function Units.new(Player:Player, CTowerID:string, Position:Vector3): Unit
 	self.Model.Parent = Config.TowerParent
 	
 	-- set signals
-	Util.sigfor(self, {"Shot", "StatusEffectChanged", "Upgraded", "StatsChanged", "Destroying"})
+	Util.signalfor(self, {"Shot", "StatusEffectChanged", "Upgraded", "StatsChanged", "Destroying"})
 	
 	return self
 end
@@ -204,14 +207,119 @@ function Units:SuperMilk()
 	self.StatusEffectsChanged:Fire()
 end
 
-function Enemies.new(CEnemy)
+local function GetPaths(): {[number]: Attachment}
+	return CollectionService:GetTagged("EnemyPath")
+end
+
+local UpToDate = {FirstPath = false, LastPath = false}
+local LastValues = {FirstPath = nil, LastPath = nil}
+
+local function GetFirstPath(): Attachment?
+	if not UpToDate.FirstPath then
+		local minID = math.huge
+		for i, v in GetPaths() do
+			if v:GetAttribute("PathID") < minID then minID = v:GetAttribute("PathID") LastValues.FirstPath = v end
+		end
+		UpToDate.FirstPath = true
+	end
+	print(LastValues.FirstPath)
+	return LastValues.FirstPath
+end
+
+local function GetLastPath(): Attachment?
+	if not UpToDate.LastPath then
+		local minID = -math.huge
+		for i, v in GetPaths() do
+			if v:GetAttribute("PathID") > minID then minID = v:GetAttribute("PathID") LastValues.LastPath = v end
+		end
+		UpToDate.LastPath = true
+	end
+	return LastValues.LastPath
+end
+
+local function GetNextPath(id:number): Attachment?
+	local minID = math.huge
+	local nextid
+	local paths = GetPaths()
+	print(paths)
+	for i, v in paths do
+		local val = v:GetAttribute("PathID")
+		print("checking id: ", val)
+		if val > id and id < minID then minID = v:GetAttribute("PathID") nextid = v end
+	end
+	print("Next path selected:", nextid and nextid:GetAttribute("PathID") or "none")
+	return nextid
+end
+
+local function GetPathByID(id:number): Attachment?
+	for i, v in GetPaths() do
+		if v:GetAttribute("PathID") == id then return v end
+	end
+end
+
+function Enemies.new(CEnemyID: string, summon:boolean?)
+	local CEnemy = CEnemies[CEnemyID]
+	if not CEnemy then error("Provided wrong CEnemyID!") end
 	local self = setmetatable({}, Enemies)
-	Util.sigfor(self, {"Shot", "StatusEffectChanged", "Upgraded", "StatsChanged", "Destroying"})
+	r(self)
+	self.Name = CEnemyID
+	self.Speed = CEnemy.BaseSpeed
+	self.Health = CEnemy.BaseHealth
+	self.Model = CEnemy.Model:Clone()
+	Util.signalfor(self, {"GotDamaged", "StatsChanged", "Destroying", "BreakAI"})
+	if not summon then return self end
+	local f = workspace:FindFirstChild("Enemies")
+	if not f then
+		f = Instance.new("Folder")
+		f.Name = "Enemies"
+		f.Parent = workspace
+	end
+	self.Model.Parent = f
+	self:BeBorn()
 	return self
 end
 
+-- Starts enemy AI at given PathID (you might want)
+function Enemies:BeBorn(curID:number?)
+	local StartAttach = not self.curID and GetFirstPath() or GetPathByID(self.curID)
+	self.curID = StartAttach:GetAttribute("PathID")
+	local stop = false
+	self.BreakAI:Once(function() stop = true end)
+	self.Model:PivotTo(StartAttach.WorldCFrame + Vector3.yAxis*3)
+	local hum: Humanoid = self.Model:FindFirstChildWhichIsA("Humanoid")
+	
+	local connection: RBXScriptConnection
+	
+	local function WalkToNext() -- TODO: !!!!! USE TWEENS ON CLIENT INSTEAD OF THIS MoveToFinished SHIT -- I just made this to test pathids
+		print("walktonext from pathid", self.curID)
+		if stop then connection:Disconnect() return end
+		local nextPath = GetNextPath(self.curID)
+		print("moving to pathid", nextPath:GetAttribute("PathID"))
+		if not nextPath then connection:Disconnect() warn("That was the last pathid, man.") return end
+		hum:MoveTo(nextPath.WorldPosition)
+		self.curID = nextPath:GetAttribute("PathID")
+	end
+	
+	connection = hum.MoveToFinished:Connect(WalkToNext)
+	WalkToNext()
+end
+
+-- Stops enemy AI
+function Enemies:Lobotomize()
+	self.BreakAI:Fire()
+end
+
+-- Destroys the enemy
 function Enemies:Destroy()
-	jTDF.EnemyKilled:Fire()
+	task.spawn(function()
+		r(self)
+		self.Destroying:Fire()
+		jTDF.EnemyKilled:Fire(self)
+
+		task.wait()
+		self.Model:Destroy()
+		self = nil
+	end)
 end
 
 return jTDF
