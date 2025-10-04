@@ -3,11 +3,9 @@ local Util = {}
 
 local Signal = require(script.Parent.Signal)
 
-function Util.sigfor(t:{}, ind:{string})
-	for i, v in t do
-		if i == ind[2] then
-			v = Signal()
-		end
+function Util.signalfor(t:{}, ind:{string})
+	for i, v in ind do
+		t[v] = Signal()
 	end
 end
 
