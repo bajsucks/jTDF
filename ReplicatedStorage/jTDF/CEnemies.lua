@@ -15,7 +15,7 @@ export type CEnemy = {
 	["Model"]: Model
 }
 
-local CEnemies: {[string]: CEnemy} = {
+local CEnemies: {[string]: CEnemy} = table.freeze{
 	["Green Zombie"] = {
 		["Name"] = "",
 		["BaseHealth"] = 1,
