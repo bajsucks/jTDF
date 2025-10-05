@@ -16,7 +16,6 @@ function Util.signalfor(t:{}, ind:{string})
 	end
 end
 
-
 function Util.BulkPivotTo(models:{PVInstance}, CFrames:{CFrame}, mode:Enum.BulkMoveMode)
 	local newCFrames = {}
 	local newModels = {}
@@ -26,6 +25,13 @@ function Util.BulkPivotTo(models:{PVInstance}, CFrames:{CFrame}, mode:Enum.BulkM
 		table.insert(newCFrames, CFrames[i] * pivotOffset)
 	end
 	workspace:BulkMoveTo(newModels, newCFrames, mode)
+end
+
+function Util.IsDictEmpty(dict:{[any]: any}): boolean
+	for i in dict do
+		return false
+	end
+	return true
 end
 
 
