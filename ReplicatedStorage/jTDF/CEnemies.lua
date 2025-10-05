@@ -2,7 +2,7 @@
 --[[
 	Enemies module
 	Created: 9/26/2025
-	Last updated: 9/26/2025
+	Last updated: 10/5/2025
 	Author: baj (@artembon)
 	Description: Holds enemy properties.
 ]]
@@ -18,8 +18,8 @@ export type CEnemy = {
 local CEnemies: {[string]: CEnemy} = table.freeze{
 	["Green Zombie"] = {
 		["Name"] = "",
-		["BaseHealth"] = 1,
-		["BaseSpeed"] = 1,
+		["BaseHealth"] = 100,
+		["BaseSpeed"] = 0.5,
 		["Model"] = ReplicatedStorage.Enemies["Green Zombie"]
 	}
 }
