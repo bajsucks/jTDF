@@ -1,4 +1,6 @@
 -- @ScriptType: ModuleScript
+--!optimize 2
+--!native
 --[[
 	jTDF module
 	Created: 9/26/2025
@@ -10,6 +12,7 @@
 -- services
 local CollectionService = game:GetService("CollectionService")
 local RunService = game:GetService("RunService")
+local ServerScriptService = game:GetService("ServerScriptService")
 
 -- constant modules
 local CTowers = require(script.CTowers)
@@ -36,11 +39,15 @@ export type Unit = {
 	["TowerID"]: number,
 	["CurUpgrade"]: number,
 	["CurStats"]: Stats,
+	["Actor"]: Actor,
 	["StatusEffects"]: {[string]: thread|boolean}, -- update documentation
 	["Owner"]: number, -- userid
 	["Position"]: Vector3,
 	["Model"]: Model,
+	["Debounce"]: number,
 	["Shot"]: Signal.Signal<string>,
+	["EnemyEnterRange"]: Signal.Signal<string>,
+	["EnemyExitRange"]: Signal.Signal<string>,
 	["StatusEffectsChanged"]: Signal.Signal<string, boolean>,
 	["Upgraded"]: Signal.Signal<number>,
 	["StatsChanged"]: Signal.Signal<>,
@@ -53,7 +60,8 @@ export type Enemy = {
 	["Speed"]: number,
 	["Health"]: number,
 	["LastHit"]: Unit,
-	["CurrentPathID"]: number,
+	["CurrentPath"]: Attachment,
+	["NextPath"]: Attachment,
 	["StartTime"]: number,
 	["StatusEffects"]: {[number]: string},
 	["StatsChanged"]: Signal.Signal<>,
@@ -78,6 +86,8 @@ local CheckUnit = t.interface({
 local jTDF = {Units = {}, Enemies = {}}
 local Units, Enemies = jTDF.Units, jTDF.Enemies
 Units.__index, Enemies.__index = Units, Enemies
+local ActiveUnits = {}
+local ActiveEnemies = {}
 
 -- [ Client and server functions ]
 
@@ -132,6 +142,17 @@ local function GetPathByID(id:number): Attachment?
 	for i, v in GetPaths() do
 		if v:GetAttribute("PathID") == id then return v end
 	end
+end
+
+-- convenience
+function Enemies.GetProgress(Enemy)
+	local pos1 = Enemy.CurrentPath.WorldPosition
+	local pos2 = Enemy.NextPath.WorldPosition
+	local PathLength = (pos1 - pos2).Magnitude
+	local TimeSpent = workspace:GetServerTimeNow() - Enemy.StartTime
+	local DistanceCovered = TimeSpent * Enemy.Speed
+	local Progress = DistanceCovered / PathLength
+	return pos1, pos2, PathLength, TimeSpent, DistanceCovered, Progress
 end
 
 
@@ -189,17 +210,6 @@ if RunService:IsClient() then
 		enemylist[tostring(EnemyID)] = nil
 	end
 	
-	-- convenience
-	local function GetProgressComponents(v)
-		local pos1 = v.CurrentPath.WorldPosition
-		local pos2 = v.NextPath.WorldPosition
-		local PathLength = (pos1 - pos2).Magnitude
-		local TimeSpent = workspace:GetServerTimeNow() - v.StartTime
-		local DistanceCovered = TimeSpent * v.Speed
-		local Progress = DistanceCovered / PathLength
-		return pos1, pos2, PathLength, TimeSpent, DistanceCovered, Progress
-	end
-	
 	-- update every single frame!!! hooray main source of lag
 	RunService.RenderStepped:Connect(function()
 		-- list to bulk moveto
@@ -207,7 +217,7 @@ if RunService:IsClient() then
 		local CFrames = {}
 		for i in enemylist do
 			local v = enemylist[i] -- regular for loop value does not hold reference to the table
-			local pos1, pos2, PathLength, TimeSpent, DistanceCovered, Progress = GetProgressComponents(v)
+			local pos1, pos2, PathLength, TimeSpent, DistanceCovered, Progress = Enemies.GetProgress(v)
 			if Progress > 1 then
 				-- move to next waypoint
 				v.CurrentPath = v.NextPath
@@ -219,7 +229,7 @@ if RunService:IsClient() then
 				v.StartTime = workspace:GetServerTimeNow() - (DistanceCovered - PathLength) / v.Speed
 				
 				-- update variables because they're fucked up now
-				pos1, pos2, PathLength, TimeSpent, DistanceCovered, Progress = GetProgressComponents(v)
+				pos1, pos2, PathLength, TimeSpent, DistanceCovered, Progress = Enemies.GetProgress(v)
 			end
 			table.insert(Models, v.Model)
 			table.insert(CFrames, CFrame.new(pos1:Lerp(pos2, Progress)) * CFrame.lookAt(pos1, pos2).Rotation)
@@ -238,6 +248,22 @@ end
 
 function jTDF.RegisterEffect(Effect:string, func:()->())
 	-- todo
+end
+
+
+local function CreateActor(Script:Script)
+	local Actor = Instance.new("Actor")
+	local f = ServerScriptService:FindFirstChild("jTDF_Actors")
+	if not f then
+		f = Instance.new("Folder")
+		f.Name = "jTDF_Actors"
+		f.Parent = ServerScriptService
+	end
+	Actor.Parent = f
+	local s = Script:Clone()
+	s.Parent = Actor
+	s.Enabled = true
+	return Actor
 end
 
 -- server signals (not signalfor because intellisense)
@@ -270,8 +296,10 @@ function Units.new(Player:Player, CTowerID:string, Position:Vector3): Unit
 	self.CurStats.Cost = nil
 	self.StatusEffects = {}
 	self.Position = Position
-	self.Model = CTower.Model:Clone()
-	self.Model.Parent = Config.TowerParent
+	self.Debounce = 0
+	self.Actor = CreateActor(script.Parallel.TowerRange)
+	
+	ActiveUnits[tostring(self.TowerID)] = self
 	
 	-- set signals
 	Util.signalfor(self, {"Shot", "StatusEffectChanged", "Upgraded", "StatsChanged", "Destroying"})
@@ -289,6 +317,8 @@ function Units:Destroy()
 		
 		task.wait()
 		self.Model:Destroy()
+		self.Actor:Destroy()
+		ActiveUnits[tostring(self.TowerID)] = nil
 		self = nil
 	end)
 end
@@ -372,29 +402,124 @@ function Enemies.new(CEnemyID: string)
 	EnemyCounter += 1
 	self.EnemyID = EnemyCounter
 	Util.signalfor(self, {"GotDamaged", "StatsChanged", "Destroying"})
-	self.CurrentPathID = GetFirstPath():GetAttribute("PathID")
+	self.CurrentPath = GetFirstPath()
+	self.NextPath = GetNextPath(self.CurrentPath:GetAttribute("PathID"))
 	self.StartTime = workspace:GetServerTimeNow()
+	
+	ActiveEnemies[tostring(self.EnemyID)] = self
 	
 	jTDF.EnemySpawned:Fire(self)
 	
 	return self
 end
 
+function Enemies:GetPosition(): Vector3
+	
+end
+
 -- murder, but on server
 function Enemies:Destroy()
-	task.spawn(function()
-		r(self)
-		self.Destroying:Fire()
-		jTDF.EnemyKilled:Fire(self)
-
+	r(self)
+	self.Destroying:Fire()
+	jTDF.EnemyKilled:Fire(self)
+	ActiveEnemies[tostring(self.EnemyID)] = nil
+	task.defer(function()
 		task.wait()
-		self.Model:Destroy()
 		self = nil
 	end)
 end
 
 jTDF.EnemySpawned:Connect(function(self:Enemy)
-	script.Remotes.EnemySpawn:FireAllClients(self.CEnemyID, self.EnemyID, self.Speed, self.CurrentPathID, workspace:GetServerTimeNow())
+	script.Remotes.EnemySpawn:FireAllClients(self.CEnemyID, self.EnemyID, self.Speed, self.CurrentPath:GetAttribute("PathID"), workspace:GetServerTimeNow())
+end)
+
+local WaypointActors: {Actor} = {}
+for i = 1, 20 do
+	table.insert(WaypointActors, CreateActor(script.Parallel.Waypoints))
+end
+
+local function WrapNumber(N: number, Max: number): number
+	local zeroBasedN = N - 1
+	local resultZeroBased = zeroBasedN % Max
+	local resultOneBased = resultZeroBased + 1
+	return resultOneBased
+end
+
+RunService.Heartbeat:Connect(function(dt)
+	local counter = 0
+	
+	local e = {}
+	debug.profilebegin("Table reform") -- Make enemy tables lighter for actor messaging
+	for i, v in ActiveEnemies do
+		e[i] = {
+			EnemyID = v.EnemyID,
+			CurrentPath = v.CurrentPath,
+			NextPath = v.NextPath,
+			StartTime = v.StartTime,
+			Speed = v.Speed
+		}
+	end
+	debug.profileend("Table reform")
+	debug.profilebegin("WaypointBatching") -- batch waypoints for actors to digest
+	local batches = {}
+	for i, v in e do
+		counter += 1
+		local w = WrapNumber(counter, 20)
+		batches[w] = batches[w] or {}
+		table.insert(batches[w], v)
+	end
+	debug.profileend("WaypointBatching")
+	debug.profilebegin("EnemyWaypointMessage") -- send batches to actors (expensive!)
+	for i, v in batches do
+		WaypointActors[WrapNumber(counter, 20)]:SendMessage("UpdateEnemyWaypoint", v)
+	end
+	debug.profileend("EnemyWaypointMessage")
+	debug.profilebegin("ProcessUnit")
+	for idUnit in ActiveUnits do
+		task.spawn(function()
+			local u = {}
+			local Unit: Unit = ActiveUnits[idUnit]
+			if Unit.Debounce then Unit.Debounce -= 1 return end
+			u.TowerID = Unit.TowerID
+			u.Actor = Unit.Actor
+			u.CurStats = Unit.CurStats
+			u.Debounce = Unit.Debounce
+			u.Position = Unit.Position
+			Unit.Actor:SendMessage("ProcessUnit", u, e)
+		end)
+	end
+	debug.profileend("ProcessUnit")
+end)
+script.TowerRangeReply.Event:Connect(function(UnitID, Threats, Close)
+	local self:Unit = ActiveUnits[tostring(UnitID)]
+	if not self then warn("fake unit") return end
+	--if self.Debounce >= 1 then self.Debounce -= 1 return end
+	if Util.IsDictEmpty(Threats) and Util.IsDictEmpty(Close) then self.Debounce = 5 return end
+end)
+
+script.WaypointReply.Event:Connect(function(enemyid)
+	debug.profilebegin("WaypointReply")
+	local v = ActiveEnemies[enemyid]
+	local _, _, PathLength, _, DistanceCovered, Progress = Enemies.GetProgress(v)
+	if Progress > 1 then
+		print("Updating path for someone")
+		-- move to next waypoint
+		v.CurrentPath = v.NextPath
+		v.NextPath = GetNextPath(v.CurrentPath:GetAttribute("PathID"))
+
+		if not v.NextPath then v:Destroy() return end
+
+		-- start time of that specific waypoint, because that's how server formats it
+		v.StartTime = workspace:GetServerTimeNow() - (DistanceCovered - PathLength) / v.Speed
+	end
+	debug.profileend("WaypointReply")
+end)
+
+jTDF.EnemySpawned:Connect(function() -- so towers that are directly next to enemy spawner can react instantly when an enemy spawns even when they sleep
+	for idUnit in ActiveUnits do
+		local Unit: Unit = ActiveUnits[idUnit]
+		Unit.Debounce = 0
+	end
 end)
 
 return jTDF
