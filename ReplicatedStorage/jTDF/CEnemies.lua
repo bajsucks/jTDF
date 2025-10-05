@@ -19,7 +19,7 @@ local CEnemies: {[string]: CEnemy} = table.freeze{
 	["Green Zombie"] = {
 		["Name"] = "",
 		["BaseHealth"] = 100,
-		["BaseSpeed"] = 0.5,
+		["BaseSpeed"] = 1,
 		["Model"] = ReplicatedStorage.Enemies["Green Zombie"]
 	}
 }
