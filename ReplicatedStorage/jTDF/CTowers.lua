@@ -17,6 +17,7 @@ export type Stats = {
 	["Range"]: number?, -- studs
 	["Damage"]: number,
 	["FireRate"]: number, -- seconds
+	["Cooldown"]: boolean,
 	["FireFunction"]: (Target: {}) -> (boolean)?
 	-- FireFunction receives an enemy as target
 	-- When true is returned, firerate will be applied
@@ -38,7 +39,7 @@ local CTowers:{[string]: CTower} = table.freeze {
 		["Upgrades"] = {
 			[1] = {
 				["Cost"] = 10,
-				["Range"] = 1,
+				["Range"] = 10,
 				["Damage"] = 1,
 				["FireRate"] = 1,
 				["FireFunction"] = nil
