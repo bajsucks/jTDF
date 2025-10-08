@@ -31,7 +31,7 @@ If you want a template of those, you can find them in the demo place (will be av
 
 ## Features:
 TBD
-- Extremely optimized: performance-heavy computations are thoroughly optimized and run in parallel
+- Lightweight: performance-heavy computations are thoroughly optimized and run in parallel
 - Easy to set up new towers
 - Easy to set up new enemies
 - Easy to create* enemy paths
