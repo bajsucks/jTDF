@@ -6,7 +6,7 @@
 
 # Baj's Tower Defense Framework
 
-blazingly fast framework made with ease of use in mind
+Tower Defense framework that frees you from optimization hell and lets you create what you want to create
 
 </div>
 
@@ -31,7 +31,7 @@ If you want a template of those, you can find them in the demo place (will be av
 
 ## Features:
 TBD
-- VERY performant (800 enemies & 6 towers resulted in under 20% server load)
+- Extremely optimized: performance-heavy computations are thoroughly optimized and run in parallel
 - Easy to set up new towers
 - Easy to set up new enemies
 - Easy to create* enemy paths
@@ -41,21 +41,20 @@ TBD
 \* with a plugin
 
 ## Installation
-You can clone the repository using <a href="https://devforum.roblox.com/t/git-sync-plugin-the-missing-link-between-github-and-roblox-studio/3539801">GitLink</a>
+You can:
 
-Download .rbxm from releases and put it in ReplicatedStorage (soon™️)
+1. Clone the repository using <a href="https://devforum.roblox.com/t/git-sync-plugin-the-missing-link-between-github-and-roblox-studio/3539801">GitLink</a>
 
-or get the module on Creator Hub (soon™️)
+2. Download .rbxm from releases and put it in ReplicatedStorage (soon™️)
+
+3. Get the module on Creator Hub (soon™️)
 
 ## Contributing
 Just make a pr and we'll sort it out ig
 
 ## Configuration
-make towers in CTowers module
 
-make enemies in CEnemies module
-
-additional configs in Config module
+You can find additional configs in the Config module
 
 ## License
 MIT
