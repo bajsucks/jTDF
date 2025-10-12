@@ -34,5 +34,31 @@ function Util.IsDictEmpty(dict:{[any]: any}): boolean
 	return true
 end
 
+function Util.SpawnFolder(n:string, p:Instance)
+	local f = p:FindFirstChild(n)
+	if not f then
+		f = Instance.new("Folder")
+		f.Name = n
+		f.Parent = p
+	end
+	return f
+end
+
+-- converts a Vector3 to a vector. If a vector is passed, it will be returned with no changes.
+function Util.tovector(v:Vector3): vector
+	if type(v) == "vector" then return v end
+	return vector.create(v.X, v.Y, v.Z)
+end
+-- converts a vector to a Vector3. If a Vector3 is passed, it will be returned with no changes.
+function Util.toVector3(v:vector): Vector3
+	if typeof(v) == "Vector3" then return v end
+	return Vector3.new(v.x, v.y, v.z)
+end
+
+function Util.toVector2(v:Vector3|vector, preserve:{[number]: "X"|"Y"|"Z"})
+	local x, y = v[preserve[1]], v[preserve[2]]
+	return Vector2.new(x, y)
+end
+
 
 return Util
