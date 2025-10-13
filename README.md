@@ -23,6 +23,7 @@ If you use this framework in your games, consider giving the repo a star and don
 
 ## What this framework does not handle:
 **Game logic**,
+**Rendering**,
 UI,
 Lobbies,
 Player data apart from money
@@ -30,7 +31,6 @@ Player data apart from money
 If you want a template of those, you can find them in the demo place (will be available soon™️)
 
 ## Features:
-TBD
 - Lightweight: performance-heavy computations are thoroughly optimized and run in parallel
 - Easy to set up new towers
 - Easy to set up new enemies
@@ -43,11 +43,12 @@ TBD
 ## Installation
 You can:
 
-1. Clone the repository using <a href="https://devforum.roblox.com/t/git-sync-plugin-the-missing-link-between-github-and-roblox-studio/3539801">GitLink</a>
+1. Get the module on Creator Hub (soon™️) [recommended]
 
 2. Download .rbxm from releases and put it in ReplicatedStorage (soon™️)
 
-3. Get the module on Creator Hub (soon™️)
+3. Clone the repository using <a href="https://devforum.roblox.com/t/git-sync-plugin-the-missing-link-between-github-and-roblox-studio/3539801">GitLink</a>
+
 
 ## Contributing
 Just make a pr and we'll sort it out ig
