@@ -8,16 +8,15 @@
 
 jTDF is a Tower Defense framework that frees you from optimization hell and lets you create what you want to create
 
-- Excellent performance
-By utilizing parallel luau, jTDF is able to reach astonishing performance
+</div>
 
-environment: 8 threads, 500 enemies, 100 towers
+By utilizing parallel luau, jTDF is able to reach astonishing performance.
+
+Testing environment: 8 threads, 500 enemies, 100 towers
 
 result: jTDF takes up around 10ms of frametime, which is approximately 60% of budget. Game runs at smooth 60 FPS.
 
 note: towers that don't have enemies near their radius are approximately 5x as efficient. This test had all towers active.
-
-</div>
 
 Devforum page is unavailable
 
