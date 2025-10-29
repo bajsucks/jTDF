@@ -193,6 +193,9 @@ function Units.Upgrade(self:Unit)
 	if self.CurLevel + 1 > #CTower.Upgrades then print(CTower.Upgrades, #CTower.Upgrades, self.CurLevel + 1); return self.CurLevel end
 	self.CurLevel += 1
 	self.CurStats = CTower.Upgrades[self.CurLevel]
+	if self.Radius then
+		self.Radius:Resize(self.CurStats.Range)
+	end
 	self.StatsChanged:Fire()
 	jTDF.UnitChanged:Fire(self)
 	return self.CurLevel
@@ -445,6 +448,7 @@ function Radius.FromID(ID:string)
 end
 
 function Radius.Destroy(self:Radius)
+	if not self or not jTDF.ActiveRadii[self.RadiusID] then return end
 	print("destroying radius")
 	jTDF.ActiveRadii[self.RadiusID] = nil
 	self:__Deconstruct()
