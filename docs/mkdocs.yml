@@ -1,0 +1,40 @@
+site_name: jTDF Documentation
+repo_url: https://github.com/bajsucks/jTDF
+site_description: jTDF documentation github
+site_author: bajsucks
+nav:
+  - 'index.md'
+  - 'Installation.md'
+  - 'Configuration.md'
+  - 'Demoplace.md'
+  - 'jTDF.md'
+  #    Path Builder is a thing I want to release in the future, it will work natively with jTDF
+  # - 'Path Builder.md'
+  - 'Notes.md'
+theme:
+  favicon: img/logo_j.svg
+  logo: img/jTDF_logo.svg
+  name: material
+  palette:
+  - media: "(prefers-color-scheme)"
+    toggle:
+      icon: material/link
+      name: Switch to light mode
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: indigo
+    accent: indigo
+    toggle:
+      icon: material/toggle-switch
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: black
+    accent: indigo
+    toggle:
+      icon: material/toggle-switch-off
+      name: Switch to system preference
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences

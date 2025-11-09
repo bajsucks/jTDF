@@ -2,8 +2,6 @@
 --!native
 --[[
 	Waypoints script
-	Created: 10/5/2025
-	Last updated: 10/5/2025
 	Author: baj (@artembon)
 	Description: Parallel execution for enemy waypoint updates
 ]]

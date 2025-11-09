@@ -1,3 +1,4 @@
+-- Path functions, can be used on both server and client
 local Path = {}
 local LastValues = {}
 

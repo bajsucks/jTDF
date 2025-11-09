@@ -1,67 +1,49 @@
 <div align="center">
   
-  insert badges here
-  
+[![GitHub release](https://img.shields.io/github/v/release/bajsucks/jTDF)](https://github.com/bajsucks/jTDF/releases)
+[![Discord community server](https://badgen.net/badge/discord/Community%20server/7289DA?icon=discord)](https://discord.gg/zNyyVCUuS8)
+<!-- [![Devforum page](https://img.shields.io/badge/Developer-forum-27C2F5)]() -->
+[![Documentation](https://img.shields.io/badge/Documentation--white)](https://bajsucks.github.io/jTDF/)
+<!-- [![Creator Hub](https://img.shields.io/badge/Get_the_module--8A2BE2)]() -->
+[![Donation game](https://img.shields.io/badge/Donations--green)](https://www.roblox.com/games/85448389693648/Donation-Game)
+
 <img src="https://github.com/user-attachments/assets/2aefaadd-2863-4fae-86c0-38e1d13ced27" alt="jTDF logo" width="40%" align="center">
 
 # Baj's Tower Defense Framework
 
-jTDF is a Tower Defense framework that frees you from optimization hell and lets you create what you want to create
+jTDF is the most performant Tower Defense framework.
+
+By utilizing <a href="https://create.roblox.com/docs/scripting/multithreading">Parallel Luau</a>, it is able to handle hundreds of enemy and tower interactions without any lag.
 
 </div>
 
-By utilizing parallel luau, jTDF is able to reach astonishing performance.
-
-Testing environment: 8 threads, 500 enemies, 100 towers
-
-result: jTDF takes up around 10ms of frametime, which is approximately 60% of budget. Game runs at smooth 60 FPS.
-
-note: towers that don't have enemies near their radius are approximately 5x as efficient. This test had all towers active.
-
-Devforum page is unavailable
-
-If you use this framework in your games, consider giving the repo a star and donating to my broke ass
-
 ## What this framework handles:
-- Data structure: towers, tower radii, enemies and paths are separate defined objects
-- Towers: placement, upgrades, easy logic set up
-- Radii: parallelized enemy detection, dynamic sizes,
-- Enemies: health, speed, walking along path, death
-- All necessary signals are defined and documented
+
+- Towers: stats, placement, upgrades
+- Enemies: health, speed, death
+- Enemy detection: easily create enemy detection radii with no concern for performance
+- Paths
+- API endpoints
 
 ## What this framework does not handle:
-**Game logic itself** (jTDF instead provides a clear toolset to create the game YOU want),
 
-**Rendering** (see example rendering in the demo game, jTDF is server-sided except path tools),
-UI,
-Lobbies,
-Player data
-
-If you want a template of those, you can find them in the demo place (will be available soon™️)
+- Game logic
+- Rendering
+- Anything client side
 
 ## Features:
-- Lightweight: performance-heavy computations are thoroughly optimized and run in parallel
+
+- Easy to create enemy detection zones
 - Easy to set up new towers
 - Easy to set up new enemies
-- Easy to create* enemy paths
+- Astonishing performance
 - Extremely customizable, but stays user-friendly
-- Full documentation with clear examples
+- Fully documented
+- Comprehensible, commented codebase
 
-\* with a plugin
-
-## Installation
-You can:
-
-1. Get the module on Creator Hub (soon™️) [recommended]
-
-2. Download .rbxm from releases and put it in ReplicatedStorage (soon™️)
-
-## Contributing
-Just make a pr and we'll sort it out ig
-
-## Configuration
-
-You can find additional configs in the Config module
+<!-- ## Installation
+You can install the module by downloading it off [Creator Hub]()
+-->
 
 ## License
 MIT

@@ -2,8 +2,6 @@
 --!native
 --[[
 	jTDF module
-	Created: 9/26/2025
-	Last updated: 10/20/2025
 	Author: baj (@artembon)
 	Description: Tower and enemy functions
 ]]
@@ -128,7 +126,7 @@ end
 local UnitCounter = 0
 function Units.new(Player:Player?, CTowerID:string, Position:Vector3|vector, pathLabels: {string}?)
 	
-	local CheckNewUnit = t.tuple(t.instanceIsA("Player"), t.string, t.vector)
+	local CheckNewUnit = t.tuple(t.optional(t.instanceIsA("Player")), t.string, t.vector)
 	assert(CheckNewUnit(Player, CTowerID, Position))
 	
 	local CTower: CTower = CTowers[CTowerID]
@@ -146,7 +144,6 @@ function Units.new(Player:Player?, CTowerID:string, Position:Vector3|vector, pat
 	self.pathLabels = pathLabels
 	self.TowerID = tostring(UnitCounter)
 	self.Position = Util.tovector(Position) :: vector
-	self.StatusEffects = {} :: {[string]: thread|boolean}
 	self.Owner = userid
 	jTDF.ActiveUnits[self.TowerID] = self
 	self.CurStats.RadiusConfig.TowerID = self.TowerID
@@ -158,7 +155,7 @@ function Units.new(Player:Player?, CTowerID:string, Position:Vector3|vector, pat
 	setmetatable(self, Units)
 
 	-- set signals
-	Util.signalfor(self, {"Shot", "Upgraded", "StatsChanged", "Destroying"})
+	Util.signalfor(self, {"Upgraded", "Destroying"})
 	jTDF.UnitPlaced:Fire(self)
 
 	return self
@@ -190,13 +187,12 @@ end
 
 function Units.Upgrade(self:Unit)
 	local CTower: CTower = CTowers[self.CTowerID]
-	if self.CurLevel + 1 > #CTower.Upgrades then print(CTower.Upgrades, #CTower.Upgrades, self.CurLevel + 1); return self.CurLevel end
+	if self.CurLevel + 1 > #CTower.Upgrades then return self.CurLevel end
 	self.CurLevel += 1
 	self.CurStats = CTower.Upgrades[self.CurLevel]
 	if self.Radius then
 		self.Radius:Resize(self.CurStats.Range)
 	end
-	self.StatsChanged:Fire()
 	jTDF.UnitChanged:Fire(self)
 	return self.CurLevel
 end
@@ -214,7 +210,7 @@ function Enemies.Define(ID:string?, CEnemy:CEnemy|{[string]: CEnemy})
 end
 
 -- create a new enemy and place him on the Path of the Damned
-function Enemies.new(CEnemyID: string, pathLabel:string, PathPosition:{CurrentPath: Attachment, Progress:number})
+function Enemies.new(CEnemyID: string, pathLabel:string, PathPosition:{CurrentPath: Attachment, Progress:number}?)
 	
 	local CheckNewEnemy = t.tuple(t.string, t.string)
 	assert(CheckNewEnemy(CEnemyID, pathLabel))
@@ -242,7 +238,7 @@ function Enemies.new(CEnemyID: string, pathLabel:string, PathPosition:{CurrentPa
 	self.pathLabel = pathLabel
 	self.Frozen = nil :: number?
 	
-	Util.signalfor(self, {"GotDamaged", "StatsChanged", "Destroying"})
+	Util.signalfor(self, {"GotDamaged", "Destroying"})
 	
 	setmetatable(self, Enemies)
 
@@ -290,7 +286,7 @@ function Enemies.Damage(self:Enemy, Damage:number, WhoDamaged:Unit?): boolean
 end
 
 function Enemies.ChangeSpeed(self:Enemy, NewSpeed:number)
-	if NewSpeed == 0 then warn("Enemy speed of 0 is not supported!\nUse Enemy:Freeze() and Enemy:Unfreeze() instead."); return end
+	if NewSpeed <= 0 then warn("Enemy speed of 0 is not supported!\nUse Enemy:Freeze() and Enemy:Unfreeze() instead."); return end
 	local _, _, _, _, DistanceCovered, _ = Enemies.GetProgress(self, true)
 	local ef = DistanceCovered/NewSpeed
 	self.StartTime = workspace:GetServerTimeNow() - ef
@@ -397,7 +393,7 @@ function Radius.new(InitPos:Vector2|vector, Size:number, Config:{})
 				if EnemySpawned then break end
 			until i >= e
 		end
-			
+		
 		if not Util.IsDictEmpty(jTDF.ActiveEnemies) then
 			if Util.IsDictEmpty(self.LastThreats) and Util.IsDictEmpty(self.LastClose) then
 				ewait(5)
@@ -449,7 +445,6 @@ end
 
 function Radius.Destroy(self:Radius)
 	if not self or not jTDF.ActiveRadii[self.RadiusID] then return end
-	print("destroying radius")
 	jTDF.ActiveRadii[self.RadiusID] = nil
 	self:__Deconstruct()
 	self.Destroying:Fire()
@@ -478,7 +473,6 @@ function Radius.__Reconstruct(self:Radius)
 end
 
 function Radius.__Deconstruct(self:Radius)
-	print("deconstructing")
 	ST_Radii[self.RadiusID] = nil
 end
 
