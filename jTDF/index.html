@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../Usage/">
+        <link rel="prev" href="../Demoplace/">
       
       
-        <link rel="next" href="../Path%20Builder/">
+        <link rel="next" href="../Notes/">
       
       
       <link rel="icon" href="../img/logo_j.svg">
@@ -24,7 +24,7 @@
     
     
       
-        <title>jTDF - jTDF Documentation</title>
+        <title>API Reference - jTDF Documentation</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#jtdf" class="md-skip">
+        <a href="#api-reference" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              jTDF
+              API Reference
             
           </span>
         </div>
@@ -266,12 +266,78 @@
   
   
     <li class="md-nav__item">
-      <a href="../Usage/" class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Installation and usage
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Demoplace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Demo place
     
   </span>
   
@@ -302,7 +368,7 @@
   
   
   <span class="md-ellipsis">
-    jTDF
+    API Reference
     
   </span>
   
@@ -315,7 +381,7 @@
   
   
   <span class="md-ellipsis">
-    jTDF
+    API Reference
     
   </span>
   
@@ -413,13 +479,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#events" class="md-nav__link">
+  <a href="#signals" class="md-nav__link">
     <span class="md-ellipsis">
-      Events
+      Signals
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Events">
+    <nav class="md-nav" aria-label="Signals">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -444,6 +510,15 @@
   <a href="#unitshot" class="md-nav__link">
     <span class="md-ellipsis">
       .UnitShot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unitchanged" class="md-nav__link">
+    <span class="md-ellipsis">
+      .UnitChanged
     </span>
   </a>
   
@@ -546,13 +621,22 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      :Upgrade
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#signals" class="md-nav__link">
+  <a href="#signals_1" class="md-nav__link">
     <span class="md-ellipsis">
       Signals
     </span>
@@ -562,27 +646,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#shot" class="md-nav__link">
-    <span class="md-ellipsis">
-      .Shot
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#upgraded" class="md-nav__link">
     <span class="md-ellipsis">
       .Upgraded
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#statschanged" class="md-nav__link">
-    <span class="md-ellipsis">
-      .StatsChanged
     </span>
   </a>
   
@@ -663,13 +729,40 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#changespeed" class="md-nav__link">
+    <span class="md-ellipsis">
+      :ChangeSpeed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#freeze" class="md-nav__link">
+    <span class="md-ellipsis">
+      :Freeze
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unfreeze" class="md-nav__link">
+    <span class="md-ellipsis">
+      :Unfreeze
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#signals_1" class="md-nav__link">
+  <a href="#signals_2" class="md-nav__link">
     <span class="md-ellipsis">
       Signals
     </span>
@@ -691,15 +784,6 @@
   <a href="#gotdamaged" class="md-nav__link">
     <span class="md-ellipsis">
       .GotDamaged
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#statschanged_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      .StatsChanged
     </span>
   </a>
   
@@ -777,7 +861,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#signals_2" class="md-nav__link">
+  <a href="#signals_3" class="md-nav__link">
     <span class="md-ellipsis">
       Signals
     </span>
@@ -790,6 +874,24 @@
   <a href="#destroying_2" class="md-nav__link">
     <span class="md-ellipsis">
       .Destroying
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#targetchanged" class="md-nav__link">
+    <span class="md-ellipsis">
+      .TargetChanged
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    <span class="md-ellipsis">
+      .Update
     </span>
   </a>
   
@@ -820,12 +922,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../Path%20Builder/" class="md-nav__link">
+      <a href="../Notes/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Path Builder
+    Other information
     
   </span>
   
@@ -937,13 +1039,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#events" class="md-nav__link">
+  <a href="#signals" class="md-nav__link">
     <span class="md-ellipsis">
-      Events
+      Signals
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Events">
+    <nav class="md-nav" aria-label="Signals">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -968,6 +1070,15 @@
   <a href="#unitshot" class="md-nav__link">
     <span class="md-ellipsis">
       .UnitShot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unitchanged" class="md-nav__link">
+    <span class="md-ellipsis">
+      .UnitChanged
     </span>
   </a>
   
@@ -1070,13 +1181,22 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      :Upgrade
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#signals" class="md-nav__link">
+  <a href="#signals_1" class="md-nav__link">
     <span class="md-ellipsis">
       Signals
     </span>
@@ -1086,27 +1206,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#shot" class="md-nav__link">
-    <span class="md-ellipsis">
-      .Shot
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#upgraded" class="md-nav__link">
     <span class="md-ellipsis">
       .Upgraded
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#statschanged" class="md-nav__link">
-    <span class="md-ellipsis">
-      .StatsChanged
     </span>
   </a>
   
@@ -1187,13 +1289,40 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#changespeed" class="md-nav__link">
+    <span class="md-ellipsis">
+      :ChangeSpeed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#freeze" class="md-nav__link">
+    <span class="md-ellipsis">
+      :Freeze
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unfreeze" class="md-nav__link">
+    <span class="md-ellipsis">
+      :Unfreeze
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#signals_1" class="md-nav__link">
+  <a href="#signals_2" class="md-nav__link">
     <span class="md-ellipsis">
       Signals
     </span>
@@ -1215,15 +1344,6 @@
   <a href="#gotdamaged" class="md-nav__link">
     <span class="md-ellipsis">
       .GotDamaged
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#statschanged_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      .StatsChanged
     </span>
   </a>
   
@@ -1301,7 +1421,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#signals_2" class="md-nav__link">
+  <a href="#signals_3" class="md-nav__link">
     <span class="md-ellipsis">
       Signals
     </span>
@@ -1314,6 +1434,24 @@
   <a href="#destroying_2" class="md-nav__link">
     <span class="md-ellipsis">
       .Destroying
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#targetchanged" class="md-nav__link">
+    <span class="md-ellipsis">
+      .TargetChanged
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    <span class="md-ellipsis">
+      .Update
     </span>
   </a>
   
@@ -1348,11 +1486,7 @@
   
 
 
-<h1 id="jtdf">jTDF</h1>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>If a type begins with "C", it's contents cannot be changed at runtime.</p>
-</div>
+<h1 id="api-reference">API Reference</h1>
 <h2 id="types">Types</h2>
 <h3 id="ctower">CTower</h3>
 <div class="admonition warning">
@@ -1361,7 +1495,6 @@
 </div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">string</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Visual name of the tower. Not used by jTDF</span>
-<span class="w">    </span><span class="p">[</span><span class="s2">&quot;Model&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">Model</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Model that will be used when the unit is summoned</span>
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;Upgrades&quot;</span><span class="p">]:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">-- Upgrades of the unit; When spawned, unit will have level 1</span>
 <span class="w">        </span><span class="p">[</span><span class="nc">number</span><span class="p">]:</span><span class="w"> </span><span class="nc">CTowerStats</span><span class="w"> </span><span class="c1">-- Stats that the unit will have when it reaches that upgrade</span>
 <span class="w">    </span><span class="p">}</span>
@@ -1373,7 +1506,6 @@
 <p>Objects of this type are read-only. Use the <a href="#define">constructor</a></p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="p">[</span><span class="s2">&quot;Cost&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">number</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Cost of the tower</span>
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;Range&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">number</span><span class="err">?</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Range of the tower, in studs</span>
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;FireFunction&quot;</span><span class="p">]:</span><span class="w"> </span><span class="p">(</span><span class="nc">self</span><span class="p">:</span><span class="nc">Radius</span><span class="p">,</span><span class="w"> </span><span class="nc">Unit</span><span class="p">:</span><span class="nc">Unit</span><span class="p">,</span><span class="w"> </span><span class="nc">Targets</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nc">Enemy</span><span class="p">})</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="p">(),</span>
 <span class="w">    </span><span class="cm">--[[    </span>
@@ -1389,8 +1521,15 @@
 <span class="cm">            Function that checks if the tower is ready to fire. Return true if tower is ready, and false if it&#39;s not.</span>
 <span class="cm">    ]]</span>
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;RadiusConfig&quot;</span><span class="p">]:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">-- Configuration for the radius that the tower will use</span>
+<span class="w">        </span><span class="p">[</span><span class="s2">&quot;IsPassive&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">boolean</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Determines whether this tower has a radius. If true, properties below will be ignored.</span>
 <span class="w">        </span><span class="p">[</span><span class="s2">&quot;CanLock&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">boolean</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Whether the tower locks onto enemies, or grabs the first enemy in it&#39;s radius. True for lock, false for first enemy.</span>
-<span class="w">        </span><span class="p">[</span><span class="s2">&quot;MaxLockedTargets&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">number</span><span class="w"> </span><span class="c1">-- Maximum amount of targets a tower can have. Applies to both lockable and not lockable towers, despite the name.</span>
+<span class="w">        </span><span class="p">[</span><span class="s2">&quot;MaxLockedTargets&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">number</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Maximum amount of targets a tower can have. Applies to both lockable and not lockable towers, despite the name.</span>
+<span class="w">        </span><span class="p">[</span><span class="s2">&quot;TargetType&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">number</span><span class="p">,</span><span class="w"> </span><span class="c1">-- TargetType of this Radius.</span>
+<span class="w">        </span><span class="cm">--[[</span>
+<span class="cm">            Target types:</span>
+<span class="cm">            1: First</span>
+<span class="cm">            2: Closest (not yet implemented!)</span>
+<span class="cm">        ]]</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1402,8 +1541,7 @@
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">string</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Visual name of the enemy. Not used by jTDF</span>
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;BaseHealth&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">number</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Health that the enemy has when it spawns</span>
-<span class="w">    </span><span class="p">[</span><span class="s2">&quot;BaseSpeed&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">number</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Speed that the enemy has when it spawns</span>
-<span class="w">    </span><span class="p">[</span><span class="s2">&quot;Model&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">Model</span><span class="w"> </span><span class="c1">-- Model that will be used when the enemy spawns</span>
+<span class="w">    </span><span class="p">[</span><span class="s2">&quot;BaseSpeed&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">number</span><span class="w"> </span><span class="c1">-- Speed that the enemy has when it spawns</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="unit">Unit</h3>
@@ -1412,12 +1550,16 @@
 <p>You can add new indecies to this object if needed</p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="p">[</span><span class="s2">&quot;CurUpgrade&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">number</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Current upgrade of the tower. Defaults to 1</span>
+<span class="w">    </span><span class="p">[</span><span class="s2">&quot;CurLevel&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">number</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Current upgrade of the tower. Defaults to 1</span>
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;CurStats&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">CTowerStats</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Current stats used by the tower. Not recommended to change manually. Instead, use StatEffects to change stats</span>
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;CTowerID&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">string</span><span class="p">,</span><span class="w"> </span><span class="c1">-- CTower index used by the tower. Don&#39;t change</span>
+
+<span class="w">    </span><span class="p">[</span><span class="s2">&quot;pathLabels&quot;</span><span class="p">]:</span><span class="w"> </span><span class="p">{</span><span class="nc">string</span><span class="p">},</span><span class="w"> </span><span class="c1">-- Paths that this unit can target.</span>
+<span class="w">    </span><span class="c1">-- Warning: if 2 paths have different length, ranges with TargetType 1 will target enemies that have travelled the farthest on THEIR path!</span>
+<span class="w">    </span><span class="c1">-- Due to this behavior, it is adviced against having enemies cross 2 different paths at the same time, although if you don&#39;t mind this, you can.</span>
+
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;TowerID&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">string</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Unique ID that this unit has. You can use it to refer to jTDF.ActiveUnits, if such need is present</span>
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;Position&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">vector</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Position of the unit. Note that it&#39;s a vector, not Vector3</span>
-<span class="w">    </span><span class="p">[</span><span class="s2">&quot;StatusEffects&quot;</span><span class="p">]:</span><span class="w"> </span><span class="p">{[</span><span class="nc">string</span><span class="p">]:</span><span class="w"> </span><span class="nc">thread</span><span class="p">|</span><span class="nc">boolean</span><span class="p">},</span><span class="w"> </span><span class="c1">-- Active StatusEffects of this unit. Not recommended to write manually</span>
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;Owner&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">number</span><span class="p">,</span><span class="w"> </span><span class="c1">-- UserID of the player that placed that tower. You can manually set this value to nil in case where a neutral tower is needed</span>
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;Radius&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">Radius</span><span class="w"> </span><span class="c1">-- Radius that the unit uses</span>
 <span class="p">}</span>
@@ -1437,9 +1579,8 @@
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;StartTime&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">number</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Time passed since CurrentPath has changed. Used for enemy position calculation</span>
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;DestroyOnDeath&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">boolean</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Whether :Destroy() will be called when health reaches 0</span>
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;LastHit&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">Unit</span><span class="err">?</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Last unit that has hit the enemy</span>
-<span class="w">    </span><span class="p">[</span><span class="s2">&quot;GotDamaged&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">Signal</span><span class="w"> </span><span class="p">&lt;&gt;,</span><span class="w"> </span><span class="c1">-- Fires when the enemy is damaged.</span>
-<span class="w">    </span><span class="p">[</span><span class="s2">&quot;StatsChanged&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">Signal</span><span class="w"> </span><span class="p">&lt;&gt;,</span><span class="w"> </span><span class="c1">-- todo</span>
-<span class="w">    </span><span class="p">[</span><span class="s2">&quot;Destroying&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">Signal</span><span class="w"> </span><span class="p">&lt;&gt;</span><span class="w"> </span><span class="c1">-- Fires when :Destroy() is called on the enemy, 1 frame before it expires</span>
+<span class="w">    </span><span class="p">[</span><span class="s2">&quot;pathLabel&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">string</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Path used by the enemy. Cannot be changed.</span>
+<span class="w">    </span><span class="p">[</span><span class="s2">&quot;Frozen&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">number</span><span class="err">?</span><span class="w"> </span><span class="c1">-- Determines whether the enemy is frozen. Use the Freeze and Unfreeze functions to change.</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="radius">Radius</h3>
@@ -1459,17 +1600,7 @@
 <span class="w">    </span><span class="p">[</span><span class="s2">&quot;Position&quot;</span><span class="p">]:</span><span class="w"> </span><span class="nc">Vector2</span><span class="w"> </span><span class="c1">-- Position of this radius, excluding height</span>
 <span class="p">}</span>
 </code></pre></div>
-<!-- ## Functions
-
-### .RegisterEffect
-<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nv">Effect</span><span class="p">:</span><span class="w"> </span><span class="nc">string</span><span class="p">,</span><span class="w"> </span><span class="nv">func</span><span class="p">:</span><span class="w"> </span><span class="nc">function</span><span class="p">)</span>
-</code></pre></div>
-!!! warning
-    This function is under construction
-
-TBD (hard) -->
-
-<h2 id="events">Events</h2>
+<h2 id="signals">Signals</h2>
 <h3 id="unitplaced">.UnitPlaced</h3>
 <p><div class="highlight"><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="nv">Unit</span><span class="p">:</span><span class="w"> </span><span class="nc">Unit</span><span class="p">,</span><span class="w"> </span><span class="nv">Position</span><span class="p">:</span><span class="w"> </span><span class="nc">Vector3</span><span class="p">)</span>
 </code></pre></div>
@@ -1482,6 +1613,10 @@ Fires when <code>:Destroy()</code> is called on any unit, 1 frame before it expi
 <p><div class="highlight"><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="nv">Unit</span><span class="p">:</span><span class="w"> </span><span class="nc">Unit</span><span class="p">,</span><span class="w"> </span><span class="nv">Targets</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nc">EnemyID</span><span class="p">})</span>
 </code></pre></div>
 Fires when a unit calls its <a href="#ctowerstats">FireFunction</a></p>
+<h3 id="unitchanged">.UnitChanged</h3>
+<p><div class="highlight"><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="nv">Unit</span><span class="p">:</span><span class="w"> </span><span class="nc">Unit</span><span class="p">)</span>
+</code></pre></div>
+Fires when a unit is upgraded. It's functionality might be expanded in the future.</p>
 <h3 id="enemykilled">.EnemyKilled</h3>
 <p><div class="highlight"><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="nv">Enemy</span><span class="p">:</span><span class="w"> </span><span class="nc">Enemy</span><span class="p">)</span>
 </code></pre></div>
@@ -1509,56 +1644,28 @@ Fires when <code>:Destroy()</code> is called on this radius</p>
 </code></pre></div>
 Defines a new CTower. ID is not used when CTower is a list</p>
 <h4 id="new">.new</h4>
-<p><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nv">Player</span><span class="p">:</span><span class="w"> </span><span class="nc">Player</span><span class="p">,</span><span class="w"> </span><span class="nv">CTowerID</span><span class="p">:</span><span class="w"> </span><span class="nc">string</span><span class="p">,</span><span class="w"> </span><span class="nv">Position</span><span class="p">:</span><span class="w"> </span><span class="nc">Vector3</span><span class="p">|</span><span class="nc">vector</span><span class="p">):</span><span class="w"> </span><span class="nc">Unit</span>
-</code></pre></div>
-Creates a new unit object. If it's CTower is not yet defined, an error will be thrown</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This function's argument types are protected. If any of the arguments has an invalid type, the function will error</p>
+<p>Some of this function's argument types are protected. If any of those arguments have an invalid type, the function will error.</p>
+<p>Protected arguments: Player, CTowerID, Position</p>
 </div>
-<!-- #### :Effect
-<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nv">Label</span><span class="p">:</span><span class="w"> </span><span class="nc">string</span><span class="p">,</span><span class="w"> </span><span class="nv">duration</span><span class="p">:</span><span class="w"> </span><span class="nc">number</span><span class="err">?</span><span class="p">)</span>
+<p><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nv">Player</span><span class="p">:</span><span class="nc">Player</span><span class="err">?</span><span class="p">,</span><span class="w"> </span><span class="nv">CTowerID</span><span class="p">:</span><span class="nc">string</span><span class="p">,</span><span class="w"> </span><span class="nv">Position</span><span class="p">:</span><span class="nc">Vector3</span><span class="p">|</span><span class="nc">vector</span><span class="p">,</span><span class="w"> </span><span class="nv">pathLabels</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nc">string</span><span class="p">}</span><span class="err">?</span><span class="p">):</span><span class="w"> </span><span class="nc">Unit</span>
 </code></pre></div>
-
-Applies a status effect to a unit.
-If duration is nil, effect will be permanent
-
-#### :ClearEffect
-<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nv">Label</span><span class="p">:</span><span class="w"> </span><span class="nc">string</span><span class="p">)</span>
-</code></pre></div>
-
-Clears the specified status effect
-
-#### :Milk
-<div class="highlight"><pre><span></span><code><span class="p">()</span>
-</code></pre></div>
-
-Clears all non-permanent status effects from a unit
-
-#### :SuperMilk
-<div class="highlight"><pre><span></span><code><span class="p">()</span>
-</code></pre></div>
-
-Clears all status effects from a unit, including permanent effects -->
-
+Creates a new unit object. If it's CTower is not yet defined, an error will be thrown</p>
 <h4 id="destroy">:Destroy</h4>
 <div class="highlight"><pre><span></span><code><span class="p">()</span>
 </code></pre></div>
 <p>Destroys this unit object.</p>
 <p><code>Unit.Destroying</code> and <code>jTDF.Destroying</code> signals are called 1 frame before this unit is destroyed</p>
-<h3 id="signals">Signals</h3>
-<h4 id="shot">.Shot</h4>
-<p><div class="highlight"><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="p">(...)</span>
+<h4 id="upgrade">:Upgrade</h4>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nv">NewLevel</span><span class="p">)</span>
 </code></pre></div>
-Not used by jTDF. You can use this signal if needed</p>
+<p>Upgrades this unit. If next level doesn't have stats, upgrade will not happen, and unchanged CurLevel will be returned.</p>
+<h3 id="signals_1">Signals</h3>
 <h4 id="upgraded">.Upgraded</h4>
 <div class="highlight"><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="nv">CurUpgrade</span><span class="p">:</span><span class="w"> </span><span class="nc">number</span><span class="p">)</span>
 </code></pre></div>
 <p>Fires when this unit is upgraded</p>
-<h4 id="statschanged">.StatsChanged</h4>
-<div class="highlight"><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="p">()</span>
-</code></pre></div>
-<p>Fires when this unit's stats change</p>
 <h4 id="destroying">.Destroying</h4>
 <p><div class="highlight"><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="p">()</span>
 </code></pre></div>
@@ -1570,23 +1677,45 @@ Fires when <code>:Destroy()</code> is called on this unit, 1 frame before it exp
 </code></pre></div>
 Defines a new CEnemy. ID is not used when CEnemy is a list</p>
 <h4 id="new_1">.new</h4>
-<p><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nv">CEnemyID</span><span class="p">:</span><span class="w"> </span><span class="nc">string</span><span class="p">,</span><span class="w"> </span><span class="nv">Position</span><span class="p">:</span><span class="w"> </span><span class="nc">Vector3</span><span class="p">|</span><span class="nc">vector</span><span class="p">):</span><span class="w"> </span><span class="nc">Enemy</span>
-</code></pre></div>
-Creates a new enemy object. If it's CEnemy is not yet defined, an error will be thrown.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This function's argument types are protected. If any of the arguments has an invalid type, the function will error</p>
+<p>Some of this function's argument types are protected. If any of those arguments have an invalid type, the function will error.</p>
+<p>Protected arguments: CEnemyID, pathLabel</p>
 </div>
+<p><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nv">CEnemyID</span><span class="p">:</span><span class="w"> </span><span class="nc">string</span><span class="p">,</span><span class="w"> </span><span class="nv">pathLabel</span><span class="p">:</span><span class="nc">string</span><span class="p">,</span><span class="w"> </span><span class="nv">PathPosition</span><span class="p">:{</span><span class="nc">CurrentPath</span><span class="p">:</span><span class="w"> </span><span class="nc">Attachment</span><span class="p">,</span><span class="w"> </span><span class="nc">Progress</span><span class="p">:</span><span class="nc">number</span><span class="p">}</span><span class="err">?</span><span class="p">):</span><span class="w"> </span><span class="nc">Enemy</span>
+</code></pre></div>
+Creates a new enemy object. If it's CEnemy is not yet defined, an error will be thrown.</p>
+<p>Optional PathPosition argument determines <em>where</em> this enemy will be spawned. Example usage of this would be mystery enemies that spawn new random enemies on death.</p>
 <h4 id="destroy_1">:Destroy</h4>
 <div class="highlight"><pre><span></span><code><span class="p">()</span>
 </code></pre></div>
-<p>Destroys the enemy object.</p>
+<p>Destroys this enemy object.</p>
 <p><code>Enemy.Destroying</code> and <code>jTDF.EnemyKilled</code> signals are called 1 frame before this enemy is destroyed</p>
 <h4 id="damage">:Damage</h4>
 <div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nv">Damage</span><span class="p">:</span><span class="nc">number</span><span class="p">)</span>
 </code></pre></div>
 <p>Damages this enemy</p>
-<h3 id="signals_1">Signals</h3>
+<h4 id="changespeed">:ChangeSpeed</h4>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nv">NewSpeed</span><span class="p">:</span><span class="nc">number</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function will error with speeds of 0 or less. In those cases use <a href="#freeze">:Freeze()</a> and <a href="#unfreeze">:Unfreeze()</a> respectively.</p>
+</div>
+<p>Changes speed of this enemy.</p>
+<h4 id="freeze">:Freeze</h4>
+<p><div class="highlight"><pre><span></span><code><span class="p">()</span>
+</code></pre></div>
+Freezes this enemy in place.</p>
+<p>It should be noted that the original speed is not affected by this, and will be restored once this enemy is unfrozen.</p>
+<p>If you try to freeze a frozen enemy, the function will return silently.</p>
+<h4 id="unfreeze">:Unfreeze</h4>
+<p><div class="highlight"><pre><span></span><code><span class="p">()</span>
+</code></pre></div>
+Unfreezes this enemy</p>
+<p>It should be noted that the original speed is not affected by this, and will remain the same when unfrozen.</p>
+<p>If you try to unfreeze an enemy that's not frozen, the function will return silently.</p>
+<h3 id="signals_2">Signals</h3>
 <h4 id="destroying_1">.Destroying</h4>
 <p><div class="highlight"><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="p">()</span>
 </code></pre></div>
@@ -1595,10 +1724,6 @@ Fires when <code>:Destroy()</code> is called on this enemy, 1 frame before it ex
 <p><div class="highlight"><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="p">()</span>
 </code></pre></div>
 Fires when this enemy is damaged</p>
-<h4 id="statschanged_1">.StatsChanged</h4>
-<p><div class="highlight"><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="p">()</span>
-</code></pre></div>
-Fires when this enemy's CurStats are changed</p>
 <h2 id="radius_1">Radius</h2>
 <h3 id="functions_2">Functions</h3>
 <h4 id="new_2">.new</h4>
@@ -1617,11 +1742,26 @@ Changes size of this radius. Currently, it just changes the Radius.Size property
 <p><div class="highlight"><pre><span></span><code><span class="p">()</span>
 </code></pre></div>
 Destroys this radius object</p>
-<h3 id="signals_2">Signals</h3>
+<h3 id="signals_3">Signals</h3>
 <h4 id="destroying_2">.Destroying</h4>
 <div class="highlight"><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="p">()</span>
 </code></pre></div>
 <p>Fires 1 frame before this radius is destroyed</p>
+<h4 id="targetchanged">.TargetChanged</h4>
+<div class="highlight"><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="nv">OldTargets</span><span class="p">:{},</span><span class="w"> </span><span class="nv">NewTargets</span><span class="p">:{})</span>
+</code></pre></div>
+<h4 id="update">.Update</h4>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This event should only be used by advanced users.
+Incorrect usage WILL lead to performance drawbacks.</p>
+</div>
+<p><div class="highlight"><pre><span></span><code><span class="o">-&gt;</span><span class="w"> </span><span class="p">()</span>
+</code></pre></div>
+Forces a radius to update it's enemy list.</p>
+<p>Unlike other signals, it is used by firing it.</p>
+<p>Example usage of this signal would be if you know that radius has outdated enemy data, has already updated once, and now you need up-to-date enemy data THIS exact frame.</p>
+<p>It can also be used as a tool to instantly wake up a radius from throttle, for example when an enemy teleports into this radius from a distance larger than 5 studs.</p>
 
 
 

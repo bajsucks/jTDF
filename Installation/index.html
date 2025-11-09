@@ -13,8 +13,10 @@
       
       
       
+        <link rel="prev" href="..">
       
-        <link rel="next" href="../jTDF/">
+      
+        <link rel="next" href="../Configuration/">
       
       
       <link rel="icon" href="../img/logo_j.svg">
@@ -22,7 +24,7 @@
     
     
       
-        <title>Installation and usage - jTDF Documentation</title>
+        <title>Installation - jTDF Documentation</title>
       
     
     
@@ -74,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#installation-and-usage" class="md-skip">
+        <a href="#installation" class="md-skip">
           Skip to content
         </a>
       
@@ -109,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Installation and usage
+              Installation
             
           </span>
         </div>
@@ -261,6 +263,28 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -278,13 +302,57 @@
   
   
   <span class="md-ellipsis">
-    Installation and usage
+    Installation
     
   </span>
   
 
       </a>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Demoplace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Demo place
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -301,7 +369,7 @@
   
   
   <span class="md-ellipsis">
-    jTDF
+    API Reference
     
   </span>
   
@@ -318,12 +386,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../Path%20Builder/" class="md-nav__link">
+      <a href="../Notes/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Path Builder
+    Other information
     
   </span>
   
@@ -370,8 +438,19 @@
   
 
 
-<h1 id="installation-and-usage">Installation and usage</h1>
-<p>TBD</p>
+<h1 id="installation">Installation</h1>
+<p>You can download jTDF from the following places:</p>
+<ul>
+<li>
+<p>Creator Hub<!--TODO: creatorhub link <a> --></p>
+</li>
+<li>
+<p><a href="https://github.com/bajsucks/jTDF/releases">Github releases</a></p>
+</li>
+</ul>
+<p>It is recommended to parent jTDF to <code>ReplicatedStorage</code> so the client is able to import jTDF types, although it will work correctly when parented anywhere else too.</p>
+<p>When required on server, jTDF will create a folder <code>jTDF_Actors</code> in <code>ServerScriptService</code>. This folder is used to store actors for parallelization; Do not touch it!</p>
+<p>jTDF module has tag <code>_JTDFMODULE</code>, which is used in actors to find it's location. Do not remove it! If you got the module from source, do not forget to add that tag!</p>
 
 
 

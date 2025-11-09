@@ -14,6 +14,8 @@
       
       
       
+        <link rel="next" href="Installation/">
+      
       
       <link rel="icon" href="img/logo_j.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
@@ -259,15 +261,188 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="Usage/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
-    Installation and usage
+    Home
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#project-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-choose-us" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why choose us?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why choose us?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ease-of-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ease of use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#games-using-jtdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Games using jTDF
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Demoplace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Demo place
     
   </span>
   
@@ -289,7 +464,7 @@
   
   
   <span class="md-ellipsis">
-    jTDF
+    API Reference
     
   </span>
   
@@ -306,12 +481,12 @@
   
   
     <li class="md-nav__item">
-      <a href="Path%20Builder/" class="md-nav__link">
+      <a href="Notes/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Path Builder
+    Other information
     
   </span>
   
@@ -406,15 +581,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation-and-usage-guide" class="md-nav__link">
-    <span class="md-ellipsis">
-      Installation and usage guide
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#games-using-jtdf" class="md-nav__link">
     <span class="md-ellipsis">
       Games using jTDF
@@ -449,47 +615,33 @@
 <p>Ba<b>j</b>'s <b>T</b>ower <b>D</b>efense <b>F</b>ramework (jTDF) is an open source framework, designed to make creation of Tower Defense games on Roblox easier.</p>
 <p>jTDF handles:</p>
 <ul>
-<li>
-<p>Towers: stats, placement, upgrades, attacks, animations, stat effects</p>
-</li>
-<li>
-<p>Enemies: health, speed, animations</p>
-</li>
-<li>
-<p>Paths: normal, bezier, split, elevated</p>
-</li>
-<li>
-<p>API endpoints: events, stat checks</p>
-</li>
+<li>Towers: stats, placement, upgrades</li>
+<li>Enemies: health, speed, death</li>
+<li>Enemy detection: easily create enemy detection radii with no concern for performance</li>
+<li>Paths</li>
+<li>API endpoints</li>
 </ul>
 <p>what jTDF does NOT handle:</p>
 <ul>
-<li>
-<p>Wave functionality</p>
-</li>
-<li>
-<p>UI</p>
-</li>
+<li>Game logic</li>
+<li>Rendering</li>
+<li>Anything client side</li>
 </ul>
 <h2 id="why-choose-us">Why choose us?</h2>
 <h3 id="ease-of-use">Ease of use</h3>
-<p>When trying to learn new frameworks, beginner developers often get confused, frustrated, and don't understand how to create exactly what they want.
-jTDF solves that by providing a comprehensible documentation with code examples, and keeping functions clean and understandable. No more having to provide 15 arguments to place a single tower!</p>
+<p>When trying to learn new frameworks, beginner developers often get confused, frustrated, and don't understand how to create exactly what they want.</p>
+<p>jTDF solves that by providing a comprehensible documentation and keeping functions clean and understandable.</p>
 <h3 id="performance">Performance</h3>
-<p>jTDF optimizes all internal heavy tasks, without restricting developer freedom.
-Math and checks happen on server, models and animations are sent to client.</p>
+<p>jTDF optimizes all internal heavy tasks with <a href="https://create.roblox.com/docs/scripting/multithreading">parallel luau</a> without restricting developer freedom.</p>
+<p>Math and checks happen on server, rendering and animation happen on client.</p>
 <h3 id="customization">Customization</h3>
-<p>All functions and data structures are built in a way which allows for their dynamic modification. Don't want all those extra features? Built-in functions are plenty, simple, and provide all the stuff a Tower Defense game needs.</p>
+<p>All functions and data structures are built in a way which allows for their dynamic modification. jTDF assumes nothing about your game, except that it's a tower defense. You are free to do everything in your own way.</p>
 <h3 id="security">Security</h3>
-<p>Client event data is checked for consistency and verified thoroughly before taking effect.</p>
-<h2 id="installation-and-usage-guide">Installation and usage guide</h2>
-<p>TBD</p>
+<p>jTDF is a server tool, it does not handle user input.</p>
+<p>That being said, important functions are secured with <code>t</code> module type checking.</p>
+<p>In API reference you will see a note under functions that use <code>t</code>.</p>
 <h2 id="games-using-jtdf">Games using jTDF</h2>
-<p>If your game uses jTDF and you want to be added to this board, you can dm me (@bajsucks) or ping me on the jTDF community server.</p>
-<!-- TBD but I will make a demo game for this later
-
-### sample game
-b -->
+<p>If your game uses jTDF and you want to be added to this page, you can dm me in Discord (<a href="https://discord.com/users/749693393185276024">@bajsucks</a>) or ping me on the <a href="https://discord.gg/zNyyVCUuS8">jTDF community server</a>.</p>
 
 
 
