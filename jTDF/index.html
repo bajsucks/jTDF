@@ -1692,9 +1692,9 @@ Creates a new enemy object. If it's CEnemy is not yet defined, an error will be 
 <p>Destroys this enemy object.</p>
 <p><code>Enemy.Destroying</code> and <code>jTDF.EnemyKilled</code> signals are called 1 frame before this enemy is destroyed</p>
 <h4 id="damage">:Damage</h4>
-<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nv">Damage</span><span class="p">:</span><span class="nc">number</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nv">Damage</span><span class="p">:</span><span class="nc">number</span><span class="p">,</span><span class="w"> </span><span class="nv">WhoDamaged</span><span class="p">:</span><span class="nc">Unit</span><span class="err">?</span><span class="p">)</span>
 </code></pre></div>
-<p>Damages this enemy</p>
+<p>Damages this enemy and records the last hit if WhoDamaged exists</p>
 <h4 id="changespeed">:ChangeSpeed</h4>
 <div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nv">NewSpeed</span><span class="p">:</span><span class="nc">number</span><span class="p">)</span>
 </code></pre></div>
