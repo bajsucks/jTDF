@@ -13,7 +13,7 @@
 
 # Baj's Tower Defense Framework
 
-jTDF is the most performant Tower Defense framework.
+Tower Defense framework built for performance and ease of use
 
 It makes use of <a href="https://create.roblox.com/docs/scripting/multithreading">Parallel Luau</a>, which allows to calculate hundreds of enemy and tower interactions without any lag.
 
