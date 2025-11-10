@@ -279,10 +279,10 @@ Destroys this enemy object.
 
 #### :Damage
 ```luau
-(Damage:number)
+(Damage:number, WhoDamaged:Unit?)
 ```
 
-Damages this enemy
+Damages this enemy and records the last hit if WhoDamaged exists
 
 #### :ChangeSpeed
 ```luau

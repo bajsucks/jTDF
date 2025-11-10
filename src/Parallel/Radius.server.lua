@@ -2,8 +2,6 @@
 --!native
 --[[
 	Radius parallel script
-	Created: 10/6/2025
-	Last updated: 10/6/2025
 	Author: baj (@artembon)
 	Description: Parallel execution for radius enemy detection
 ]]
@@ -11,7 +9,7 @@
 local actor = script:GetActor()
 local CollectionService = game:GetService("CollectionService")
 local jtdfmodule = CollectionService:GetTagged("_JTDFMODULE")[1]
-local Util = require(game.ReplicatedStorage.jTDF.internal.Util) -- TODO: change to jtdfmodule
+local Util = require(jtdfmodule.internal.Util)
 
 -- sorts the enemy to threats and close tables
 local function CheckEnemy(self, EnemyID:string, Enemy, Threats:{}, Close:{}, ST_EnemyProgress:SharedTable)

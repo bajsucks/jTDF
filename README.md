@@ -4,9 +4,7 @@
   [![Documentation](https://img.shields.io/badge/Documentation--white)](https://bajsucks.github.io/jTDF/)
   [![Discord community server](https://badgen.net/badge/Discord/community%20server/7289DA?icon=discord)](https://discord.gg/zNyyVCUuS8)
   [![Donation game](https://img.shields.io/badge/Donations--green)](https://www.roblox.com/games/85448389693648/Donation-Game)
-  <!-- [![Creator Hub](https://img.shields.io/badge/Get_the_module--8A2BE2)]() -->
   <!-- [![Devforum page](https://img.shields.io/badge/Developer-forum-27C2F5)]() -->
-  
 </div>
 
 <div align="center">

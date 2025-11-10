@@ -2,9 +2,7 @@
 
 You can download jTDF from the following places:
 
-- Creator Hub<!--TODO: creatorhub link <a> -->
-
-- <a href="https://github.com/bajsucks/jTDF/releases">Github releases</a>
+- [Github releases](https://github.com/bajsucks/jTDF/releases)
 
 It is recommended to parent jTDF to `ReplicatedStorage` so the client is able to import jTDF types, although it will work correctly when parented anywhere else too.
 

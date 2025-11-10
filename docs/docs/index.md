@@ -8,7 +8,6 @@ jTDF handles:
 - Enemies: health, speed, death
 - Enemy detection: easily create enemy detection radii with no concern for performance
 - Paths
-- API endpoints
 
 
 what jTDF does NOT handle:

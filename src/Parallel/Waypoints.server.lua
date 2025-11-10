@@ -10,7 +10,7 @@ local actor = script:GetActor()
 local CollectionService = game:GetService("CollectionService")
 local jtdfmodule = CollectionService:GetTagged("_JTDFMODULE")[1]
 
-local ThreadSafe = require(game.ReplicatedStorage.jTDF.ThreadSafe) -- TODO: change to jtdfmodule
+local ThreadSafe = require(jtdfmodule.ThreadSafe)
 
 actor:BindToMessageParallel("UpdateEnemyWaypoint", function(batch:{{}}, ST_EnemyProgress)
 	for EnemyID:string, self in batch do

@@ -5,7 +5,7 @@
 ]]
 
 local Config = {
-	["BootText"] = false
+	["BootText"] = true
 }
 
 return Config

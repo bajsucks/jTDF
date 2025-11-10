@@ -6,10 +6,10 @@
 	Description: Tower and enemy functions
 ]]
 
--- services
 
 local __version = "1.0.0"
 
+-- services
 local RunService = game:GetService("RunService")
 local ServerScriptService = game:GetService("ServerScriptService")
 local SharedTableRegistry = game:GetService("SharedTableRegistry")
@@ -85,7 +85,7 @@ export type CTower = {
 }
 
 if RunService:IsClient() then return jTDF end
-if Config.BootText then warn(`Running jTDF v{__version}\nYou can disable this text in the config.`) end
+if Config.BootText then warn(`Running jTDF v{__version}`) end
 
 local ST_EnemyProgress = SharedTable.new()
 SharedTableRegistry:SetSharedTable("EnemyProgress", ST_EnemyProgress)
@@ -209,7 +209,7 @@ function Enemies.Define(ID:string?, CEnemy:CEnemy|{[string]: CEnemy})
 	CEnemies[ID] = CEnemy
 end
 
--- create a new enemy and place him on the Path of the Damned
+-- create a new enemy and place him on the path
 function Enemies.new(CEnemyID: string, pathLabel:string, PathPosition:{CurrentPath: Attachment, Progress:number}?)
 	
 	local CheckNewEnemy = t.tuple(t.string, t.string)
@@ -251,7 +251,6 @@ function Enemies.new(CEnemyID: string, pathLabel:string, PathPosition:{CurrentPa
 	return self
 end
 
--- murder, but on server
 function Enemies.Destroy(self:Enemy)
 	self.Destroying:Fire()
 	jTDF.EnemyKilled:Fire(self)
@@ -544,7 +543,7 @@ RunService.Heartbeat:Connect(function(dt)
 end)
 script.WaypointReply.Event:Connect(function(enemyid) -- actor reply for waypoint update
 	local v = jTDF.ActiveEnemies[enemyid]
-	if not v then warn("not v"); return end
+	if not v then return end
 	local _, _, PathLength, _, DistanceCovered, Progress = Enemies.GetProgress(v, true)
 	if Progress > 1 then
 		ST_EnemyProgress[enemyid] = 0

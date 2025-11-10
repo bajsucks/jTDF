@@ -28,4 +28,4 @@ When a radius does not have enemies close, it will slow down it's update rate to
 
 However, when a new enemy is created, radius will instantly wake up from the throttle. That is to ensure radii work correctly when they contain an enemy spawn location within themselves.
 
-If you wish to manually wake a radius up from throttle, use the [.Update signal](../jTDF/#update).
+If you wish to manually wake a radius up from throttle, use the [.Update signal](jTDF.md#update).
