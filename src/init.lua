@@ -52,6 +52,9 @@ function Enemies.GetWorldPos(self:Enemy): Vector3
 	return a:Lerp(b, Progress)
 end
 
+--[[
+Returns progress in 0-1 from current enemy path to next enemy path
+]]
 function Enemies.StartTimeFromProgress(self:Enemy, Progress:number): number
 	local _, _, PathLength = Enemies.GetProgress(self, true)
 	local DistanceCovered = PathLength * Progress
@@ -110,7 +113,7 @@ local function CreateActor(Script:Script)
 	return Actor
 end
 
-do -- server signals (not signalfor because intellisense)
+do -- Server signals (not signalfor because intellisense)
 	jTDF.UnitPlaced = Signal()
 	jTDF.UnitDestroying = Signal()
 	jTDF.UnitShot = Signal()
@@ -122,8 +125,8 @@ do -- server signals (not signalfor because intellisense)
 	jTDF.RadiusDestroyed = Signal()
 end
 
--- creates a new unit at position
 local UnitCounter = 0
+-- Creates a new unit at position
 function Units.new(Player:Player?, CTowerID:string, Position:Vector3|vector, pathLabels: {string}?)
 	
 	local CheckNewUnit = t.tuple(t.optional(t.instanceIsA("Player")), t.string, t.vector)
@@ -155,12 +158,13 @@ function Units.new(Player:Player?, CTowerID:string, Position:Vector3|vector, pat
 	setmetatable(self, Units)
 
 	-- set signals
-	Util.signalfor(self, {"Upgraded", "Destroying"})
+	Util.signalfor(self, {"Upgraded", "Destroying"}) -- add signals
 	jTDF.UnitPlaced:Fire(self)
 
 	return self
 end
 
+-- Defines a new unit
 function Units.Define(ID:string?, CTower:CTower|{[string]: CTower})
 	if not ID and typeof(CTower) == "table" then
 		for i, v in CTower do
@@ -191,14 +195,14 @@ function Units.Upgrade(self:Unit)
 	self.CurLevel += 1
 	self.CurStats = CTower.Upgrades[self.CurLevel]
 	if self.Radius then
-		self.Radius:Resize(self.CurStats.Range)
+		self.Radius:Resize(self.CurStats.Range) -- update radius size because stats changed wow
 	end
 	jTDF.UnitChanged:Fire(self)
 	return self.CurLevel
 end
 
 local EnemyCounter = 0
-
+-- Define a new enemy
 function Enemies.Define(ID:string?, CEnemy:CEnemy|{[string]: CEnemy})
 	if not ID and typeof(CEnemy) == "table" then
 		for i, v in CEnemy do
@@ -209,7 +213,7 @@ function Enemies.Define(ID:string?, CEnemy:CEnemy|{[string]: CEnemy})
 	CEnemies[ID] = CEnemy
 end
 
--- create a new enemy and place him on the path
+-- Create an enemy and place him on the path
 function Enemies.new(CEnemyID: string, pathLabel:string, PathPosition:{CurrentPath: Attachment, Progress:number}?)
 	
 	local CheckNewEnemy = t.tuple(t.string, t.string)
@@ -238,7 +242,7 @@ function Enemies.new(CEnemyID: string, pathLabel:string, PathPosition:{CurrentPa
 	self.pathLabel = pathLabel
 	self.Frozen = nil :: number?
 	
-	Util.signalfor(self, {"GotDamaged", "Destroying"})
+	Util.signalfor(self, {"GotDamaged", "Destroying"}) -- add signals
 	
 	setmetatable(self, Enemies)
 
@@ -265,6 +269,9 @@ function Enemies.Destroy(self:Enemy)
 	end)
 end
 
+--[[
+Damages the enemy. WhoDamaged will set enemy's LastHit. Returns a bool whether the enemy died or not
+]]
 function Enemies.Damage(self:Enemy, Damage:number, WhoDamaged:Unit?): boolean
 	local Died = false
 	self.Health = math.max(0, self.Health - Damage)
@@ -284,6 +291,9 @@ function Enemies.Damage(self:Enemy, Damage:number, WhoDamaged:Unit?): boolean
 	return Died
 end
 
+--[[
+Change speed of an enemy. NewSpeed must be over >0, otherwise use :Freeze() and :Unfreeze() functions respectively
+]]
 function Enemies.ChangeSpeed(self:Enemy, NewSpeed:number)
 	if NewSpeed <= 0 then warn("Enemy speed of 0 is not supported!\nUse Enemy:Freeze() and Enemy:Unfreeze() instead."); return end
 	local _, _, _, _, DistanceCovered, _ = Enemies.GetProgress(self, true)
@@ -293,14 +303,18 @@ function Enemies.ChangeSpeed(self:Enemy, NewSpeed:number)
 	self:__Reconstruct()
 	jTDF.EnemyUpdated:Fire(self)
 end
-
+--[[
+Paralyze the enemy. Speed is not changed when an enemy is frozen, and the enemy will continue with it once unfrozen
+]]
 function Enemies.Freeze(self:Enemy)
 	if self.Frozen then return end
 	self.Frozen = workspace:GetServerTimeNow()
 	self:__Reconstruct()
 	jTDF.EnemyUpdated:Fire(self)
 end
-
+--[[
+Unfreeze the enemy and let em walk with the same speed that they did before
+]]
 function Enemies.Unfreeze(self:Enemy)
 	if not self.Frozen or not jTDF.ActiveEnemies[self.EnemyID] then return end
 	local difference = workspace:GetServerTimeNow() - self.Frozen
@@ -309,7 +323,9 @@ function Enemies.Unfreeze(self:Enemy)
 	self:__Reconstruct()
 	jTDF.EnemyUpdated:Fire(self)
 end
-
+--[[
+Updates the enemies sharedtable with new information
+]]
 function Enemies.__Reconstruct(self:Enemy)
 	local t = {
 		CurrentPathPos = Util.tovector(self.CurrentPath.WorldPosition),
@@ -323,16 +339,20 @@ function Enemies.__Reconstruct(self:Enemy)
 	ST_Enemies[self.EnemyID] = t
 	return t
 end
-
+--[[
+Removes an enemy from the sharedtable
+]]
 function Enemies.__Deconstruct(self:Enemy)
 	ST_Enemies[self.EnemyID] = nil
 end
 
+-- multithreading!!! wow
 local WaypointActors: {Actor} = {}
 for i = 1, 32 do
 	table.insert(WaypointActors, CreateActor(script.Parallel.Waypoints))
 end
 
+-- probably not the most efficient way to batch TODO: consider rewriting
 local function WrapNumber(N: number, Max: number): number
 	local zeroBasedN = N - 1
 	local resultZeroBased = zeroBasedN % Max
@@ -341,6 +361,9 @@ local function WrapNumber(N: number, Max: number): number
 end
 
 local RadiusCounter = 0
+--[[
+Creates a new enemy detection zone
+]]
 function Radius.new(InitPos:Vector2|vector, Size:number, Config:{})
 	Config = Config or {}
 	if typeof(InitPos) ~= "Vector2" then
@@ -363,15 +386,17 @@ function Radius.new(InitPos:Vector2|vector, Size:number, Config:{})
 	self.Position = InitPos :: Vector2
 	self.Actor = CreateActor(script.Parallel.Radius)
 	
-	Util.signalfor(self, {"Update", "Destroying", "TargetChanged"})
+	Util.signalfor(self, {"Update", "Destroying", "TargetChanged"}) -- add signals
 	
 	setmetatable(self, Radius)
 	
+	-- send to actors
 	local function Update()
 		debug.profilebegin("Actor messaging")
 		self.Actor:SendMessage("ProcessRadius", self.RadiusID, ST_EnemyProgress, ST_Enemies, ST_Radii)
 		debug.profileend()
 	end
+	-- TODO: maybe make this better
 	j:Add(self.Update:Connect(function()
 		local j2 = Janitor.new()
 		local EnemySpawned = false
@@ -395,7 +420,7 @@ function Radius.new(InitPos:Vector2|vector, Size:number, Config:{})
 		
 		if not Util.IsDictEmpty(jTDF.ActiveEnemies) then
 			if Util.IsDictEmpty(self.LastThreats) and Util.IsDictEmpty(self.LastClose) then
-				ewait(5)
+				ewait(5) -- throttle
 			end
 			Update()
 			task.wait()
@@ -425,11 +450,12 @@ function Radius.new(InitPos:Vector2|vector, Size:number, Config:{})
 	return self
 end
 
+-- Changes radius size
 function Radius.Resize(self:Radius, newRadius:number)
 	self.Size = newRadius
 	self:__Reconstruct()
 end
-
+-- Changed radius position
 function Radius.Move(self:Radius, newPosition:vector|Vector3|Vector2)
 	if typeof(newPosition) ~= "Vector2" then
 		newPosition = Util.toVector2(newPosition, {"X", "Z"})
@@ -437,7 +463,7 @@ function Radius.Move(self:Radius, newPosition:vector|Vector3|Vector2)
 	self.Position = newPosition
 	self:__Reconstruct()
 end
-
+-- Get radius from ID
 function Radius.FromID(ID:string)
 	return jTDF.ActiveRadii[ID]
 end
@@ -453,7 +479,9 @@ function Radius.Destroy(self:Radius)
 		self = nil
 	end)
 end
-
+--[[
+Updates radius sharedtable with new information
+]]
 function Radius.__Reconstruct(self:Radius)
 	local r = {
 		Size = self.Size,
@@ -470,16 +498,20 @@ function Radius.__Reconstruct(self:Radius)
 	ST_Radii[self.RadiusID] = r
 	return r
 end
-
+-- Remove from sharedtable
 function Radius.__Deconstruct(self:Radius)
 	ST_Radii[self.RadiusID] = nil
 end
 
+--[[
+Process replies from all enemy detection actors
+]]
 script.RadiusReply.Event:Connect(function(RadiusID: string, Targets: {string}, Threats, Close)
 	local self = Radius.FromID(RadiusID)
-	if not self then warn("self is nil!", jTDF.ActiveRadii[RadiusID], jTDF.ActiveRadii); return end
+	if not self then warn("self is nil!", jTDF.ActiveRadii[RadiusID], jTDF.ActiveRadii); return end -- if I don't check this and it happens, we're cooked
 	local TargetChanged = false
 	local LastTargets = self.__LastTargets or {}
+	-- check TargetChanged
 	if #LastTargets ~= #Targets then
 		TargetChanged = true
 	else
@@ -491,6 +523,7 @@ script.RadiusReply.Event:Connect(function(RadiusID: string, Targets: {string}, T
 		end
 	end
 	
+	-- update lockedtargets
 	self.LockedTargets = {}
 	for _, v in Targets do
 		local Enemy = jTDF.ActiveEnemies[v]
@@ -523,11 +556,11 @@ script.RadiusReply.Event:Connect(function(RadiusID: string, Targets: {string}, T
 	end
 end)
 
+-- This section updates at which waypoint enemies are currently located for tower range detection
 RunService.Heartbeat:Connect(function(dt)
 	local counter = 0
-	--[[ this section updates at which waypoint enemies are currently located for tower range detection. ]]
 	
-	-- batch waypoints for actors to digest
+	-- Batch waypoints for actors to digest
 	local batches = {}
 	
 	for EnemyID, v in ST_Enemies do
@@ -537,11 +570,12 @@ RunService.Heartbeat:Connect(function(dt)
 		batches[w][EnemyID] = v
 	end
 	
-	for i, v in batches do
+	for i, v in batches do -- actual processing
 		WaypointActors[WrapNumber(i, #WaypointActors)]:SendMessage("UpdateEnemyWaypoint", v, ST_EnemyProgress)
 	end
 end)
-script.WaypointReply.Event:Connect(function(enemyid) -- actor reply for waypoint update
+-- Actor reply for waypoint update
+script.WaypointReply.Event:Connect(function(enemyid)
 	local v = jTDF.ActiveEnemies[enemyid]
 	if not v then return end
 	local _, _, PathLength, _, DistanceCovered, Progress = Enemies.GetProgress(v, true)
