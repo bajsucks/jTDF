@@ -25,7 +25,7 @@ It makes use of <a href="https://create.roblox.com/docs/scripting/multithreading
 - Enemies: health, speed, death
 - Enemy detection: easily create enemy detection radii with no concern for performance
 - Paths
-- API endpoints
+- Simple API and signals
 
 ## What this framework does not handle:
 
