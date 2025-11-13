@@ -2,7 +2,7 @@
   
   [![GitHub release](https://img.shields.io/github/v/release/bajsucks/jTDF)](https://github.com/bajsucks/jTDF/releases)
   [![Documentation](https://img.shields.io/badge/Documentation--white)](https://bajsucks.github.io/jTDF/)
-  [![Discord community server](https://badgen.net/badge/Discord/community%20server/7289DA?icon=discord)](https://discord.gg/zNyyVCUuS8)
+  [![Discord community server](https://img.shields.io/badge/Discord-community-blue?logo=discord&logoColor=white)](https://discord.gg/zNyyVCUuS8)
   [![Donation game](https://img.shields.io/badge/Donations--green)](https://www.roblox.com/games/85448389693648/Donation-Game)
   [![Devforum page](https://img.shields.io/badge/Developer-forum-27C2F5)](https://devforum.roblox.com/t/jtdf-high-performance-tower-defense-framework-parallel-luau/4061864)
 </div>
